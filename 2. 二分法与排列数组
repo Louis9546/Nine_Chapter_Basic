@@ -9,9 +9,10 @@ Example
 Given [5, 7, 7, 8, 8, 10] and target value 8,
 return [3, 4].
 
-Challenge: O(log n) time.
+My Version: Use binary search to find the location of target. Then find the start and end index. 
 
-My Version: Use binary search to find the location of target. Then find the start and end index.
+
+
 public class Solution {
     /**
      * @param A: an integer sorted array
@@ -64,37 +65,30 @@ public class Solution {
 ----------------------------------------------------------------------------------------------------------------------------
 Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
 
+!!Binary Search, it should return low instead of high!!
+
 public class Solution {
     /**
      * @param A: an integer sorted array
      * @param target: an integer to be inserted
      * @return: An integer
      */
-    public int searchInsert(int[] A, int target) {
-        // write your code here
-        int res = 0;
-        if(A == null || A.length == 0){
-            return res;
+     
+     public int searchInsert(int[] nums, int target) {
+        if (nums == null) return -1;
+        
+        int low = 0, high = nums.length - 1;
+        while (low <= high) {
+            int mid = (low + high)/2;
+            if (nums[mid] == target) return mid;
+            if (target <= nums[mid]) high = mid - 1;
+            else low = mid + 1;
         }
-        return binarySearch(A, 0, A.length - 1, target); // -1 or index
         
-        
+        return low;
     }
     
-    // Find the location of target in sorted array 
-    public int binarySearch(int[] A, int start, int end, int target){
-        if(start <= end){
-            int mid = start + (end - start)/2;
-            if(A[mid] == target){
-                return mid;
-            }
-            else if(A[mid] < target){
-             return binarySearch(A, mid + 1, end, target);
-            }
-            else{
-             return binarySearch(A, start, mid - 1, target);
-            } 
-        }
-        return start;
-    }
-}
+    
+28. Search a 2D Matrix
+----------------------------------------------------------------------------------------------------------------------------
+
